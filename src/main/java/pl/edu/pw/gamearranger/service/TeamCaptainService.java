@@ -1,5 +1,6 @@
 package pl.edu.pw.gamearranger.service;
 
+import pl.edu.pw.gamearranger.domain.TeamCaptain;
 import pl.edu.pw.gamearranger.dto.CreateTeamCaptainDTO;
 
 public interface TeamCaptainService {

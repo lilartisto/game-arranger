@@ -2,6 +2,7 @@ package pl.edu.pw.gamearranger.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Table
 @Entity
@@ -65,5 +66,18 @@ public class Team {
 
     public void setGames(List<Game> games) {
         this.games = games;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return Objects.equals(id, team.id) && Objects.equals(name, team.name) && Objects.equals(captain, team.captain) && Objects.equals(players, team.players) && Objects.equals(games, team.games);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, captain, players, games);
     }
 }

@@ -10,6 +10,6 @@ public interface GameService {
     GameDTO getGame(Long id);
     void createGame(CreateGameDTO game);
     void addTeam(Long gameId, Long teamId);
-    void deleteTeam(Long id);
+    void deleteTeam(Long gameId, Long id);
 
 }

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -66,5 +67,18 @@ public class Game {
 
     public void setTime(Time time) {
         this.time = time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return Objects.equals(id, game.id) && Objects.equals(teams, game.teams) && Objects.equals(location, game.location) && Objects.equals(date, game.date) && Objects.equals(time, game.time);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, teams, location, date, time);
     }
 }

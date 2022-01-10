@@ -12,6 +12,6 @@ public interface TeamService {
     List<TeamDTO> getTeams();
     TeamDTO getTeam(Long id);
     void addPlayer(Long teamId, CreatePlayerDTO player);
-    void deletePlayer(Long id);
+    void deletePlayer(Long teamId, Long playerId);
 
 }

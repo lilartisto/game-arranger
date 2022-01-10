@@ -1,26 +1,24 @@
 package pl.edu.pw.gamearranger.dto;
 
-import pl.edu.pw.gamearranger.domain.TeamCaptain;
-
 public class CreateTeamDTO {
 
-    private TeamCaptain captain;
+    private Long captainId;
     private String name;
 
     public CreateTeamDTO() {
     }
 
-    public CreateTeamDTO(TeamCaptain captain, String name) {
-        this.captain = captain;
+    public CreateTeamDTO(Long captainId, String name) {
+        this.captainId = captainId;
         this.name = name;
     }
 
-    public TeamCaptain getCaptain() {
-        return captain;
+    public Long getCaptainId() {
+        return captainId;
     }
 
-    public void setCaptain(TeamCaptain captain) {
-        this.captain = captain;
+    public void setCaptainId(Long captainId) {
+        this.captainId = captainId;
     }
 
     public String getName() {
