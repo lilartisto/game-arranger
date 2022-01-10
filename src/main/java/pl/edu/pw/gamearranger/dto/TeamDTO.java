@@ -1,30 +1,26 @@
-package pl.edu.pw.gamearranger.domain;
+package pl.edu.pw.gamearranger.dto;
 
-import javax.persistence.*;
+import pl.edu.pw.gamearranger.domain.Game;
+import pl.edu.pw.gamearranger.domain.Player;
+import pl.edu.pw.gamearranger.domain.TeamCaptain;
+
 import java.util.List;
 
-@Table
-@Entity
-public class Team {
+public class TeamDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String name;
     private TeamCaptain captain;
     private List<Player> players;
     private List<Game> games;
 
-    public Team() {
-
+    public TeamDTO() {
     }
 
-    public Team(Long id, TeamCaptain captain, List<Player> players, List<Game> games, String name) {
-        this.id = id;
+    public TeamDTO(String name, TeamCaptain captain, List<Player> players, List<Game> games) {
+        this.name = name;
         this.captain = captain;
         this.players = players;
         this.games = games;
-        this.name = name;
     }
 
     public String getName() {
@@ -33,14 +29,6 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public TeamCaptain getCaptain() {

@@ -1,39 +1,27 @@
-package pl.edu.pw.gamearranger.domain;
+package pl.edu.pw.gamearranger.dto;
 
-import javax.persistence.*;
+import pl.edu.pw.gamearranger.domain.Team;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
-@Entity
-@Table
-public class Game {
+public class GameDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private List<Team> teams;
     private String location;
     private Date date;
     private Time time;
 
-    public Game() {
+    public GameDTO() {
     }
 
-    public Game(Long id, List<Team> teams, String location, Date date, Time time) {
-        this.id = id;
+    public GameDTO(List<Team> teams, String location, Date date, Time time) {
         this.teams = teams;
         this.location = location;
         this.date = date;
         this.time = time;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public List<Team> getTeams() {
