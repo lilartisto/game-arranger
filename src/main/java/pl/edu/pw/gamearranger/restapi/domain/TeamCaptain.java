@@ -12,6 +12,7 @@ public class TeamCaptain {
     private Long id;
     private String firstName;
     private String lastName;
+    @OneToOne
     private Team team;
 
     public TeamCaptain() {

@@ -12,8 +12,11 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @OneToOne
     private TeamCaptain captain;
+    @OneToMany
     private List<Player> players;
+    @ManyToMany
     private List<Game> games;
 
     public Team() {

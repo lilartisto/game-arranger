@@ -13,6 +13,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToMany
     private List<Team> teams;
     private String location;
     private Date date;
