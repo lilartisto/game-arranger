@@ -53,7 +53,14 @@ public class GameServiceImpl implements GameService {
         Team team = teamRepository.findById(teamId).orElseThrow(
                 () -> new NoSuchElementException("Team with id = " + teamId));
 
-        game.getTeams().add(team);
+        List<Team> teamsInGame = game.getTeams();
+
+        if(!teamsInGame.contains(team)) {
+            team.getGames().add(game);
+            teamsInGame.add(team);
+        } else {
+            throw new IllegalArgumentException("Team " + teamId + " is already signed in game " + gameId);
+        }
     }
 
     @Override

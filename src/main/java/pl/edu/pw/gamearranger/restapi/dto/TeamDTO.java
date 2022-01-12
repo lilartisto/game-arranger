@@ -8,6 +8,7 @@ import java.util.List;
 
 public class TeamDTO {
 
+    private Long id;
     private String name;
     private TeamCaptain captain;
     private List<Player> players;
@@ -16,11 +17,20 @@ public class TeamDTO {
     public TeamDTO() {
     }
 
-    public TeamDTO(String name, TeamCaptain captain, List<Player> players, List<Game> games) {
+    public TeamDTO(Long id, String name, TeamCaptain captain, List<Player> players, List<Game> games) {
+        this.id = id;
         this.name = name;
         this.captain = captain;
         this.players = players;
         this.games = games;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

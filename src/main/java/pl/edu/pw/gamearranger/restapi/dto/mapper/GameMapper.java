@@ -14,21 +14,20 @@ public class GameMapper {
         List<GameDTO> mappedGames = new LinkedList<>();
 
         for (Game g: games) {
-            mappedGames.add(new GameDTO(g.getTeams(), g.getLocation(), g.getDate(), g.getTime()));
+            mappedGames.add(new GameDTO(g.getId(), g.getTeams(), g.getLocation(), g.getDate()));
         }
 
         return mappedGames;
     }
 
     public GameDTO map(Game game) {
-        return new GameDTO(game.getTeams(), game.getLocation(), game.getDate(), game.getTime());
+        return new GameDTO(game.getId(), game.getTeams(), game.getLocation(), game.getDate());
     }
 
     public Game map(CreateGameDTO game) {
         Game g = new Game();
         g.setLocation(game.getLocation());
         g.setDate(game.getDate());
-        g.setTime(game.getTime());
         g.setTeams(new ArrayList<>());
         return g;
     }

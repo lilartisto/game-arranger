@@ -1,5 +1,7 @@
 package pl.edu.pw.gamearranger.restapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -13,6 +15,7 @@ public class TeamCaptain {
     private String firstName;
     private String lastName;
     @OneToOne
+    @JsonIgnore
     private Team team;
 
     public TeamCaptain() {

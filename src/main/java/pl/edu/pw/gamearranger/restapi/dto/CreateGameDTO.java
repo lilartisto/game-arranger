@@ -7,15 +7,13 @@ public class CreateGameDTO {
 
     private String location;
     private Date date;
-    private Time time;
 
     public CreateGameDTO() {
     }
 
-    public CreateGameDTO(String location, Date date, Time time) {
+    public CreateGameDTO(String location, Date date) {
         this.location = location;
         this.date = date;
-        this.time = time;
     }
 
     public String getLocation() {
@@ -34,11 +32,4 @@ public class CreateGameDTO {
         this.date = date;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
 }

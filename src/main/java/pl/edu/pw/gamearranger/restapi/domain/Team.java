@@ -1,5 +1,8 @@
 package pl.edu.pw.gamearranger.restapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +20,7 @@ public class Team {
     @OneToMany
     private List<Player> players;
     @ManyToMany
+    @JsonIgnore
     private List<Game> games;
 
     public Team() {

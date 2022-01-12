@@ -54,6 +54,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Transactional
     public void addPlayer(Long teamId, CreatePlayerDTO playerCreate) {
         Team team = teamRepository.findById(teamId).orElseThrow(
                 () -> new NoSuchElementException("Team with id = " + teamId));
@@ -67,7 +68,7 @@ public class TeamServiceImpl implements TeamService {
         Team team = teamRepository.findById(teamId).orElseThrow(
                 () -> new NoSuchElementException("Team with id = " + teamId));
 
-        playerService.deletePlayer(playerId);
         team.getPlayers().removeIf(player -> (player.getId().equals(playerId)));
+        playerService.deletePlayer(playerId);
     }
 }

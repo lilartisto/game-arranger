@@ -12,16 +12,23 @@ public class GameDTO {
     private List<Team> teams;
     private String location;
     private Date date;
-    private Time time;
 
     public GameDTO() {
     }
 
-    public GameDTO(List<Team> teams, String location, Date date, Time time) {
+    public GameDTO(Long id, List<Team> teams, String location, Date date) {
+        this.id = id;
         this.teams = teams;
         this.location = location;
         this.date = date;
-        this.time = time;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<Team> getTeams() {
@@ -46,13 +53,5 @@ public class GameDTO {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
     }
 }

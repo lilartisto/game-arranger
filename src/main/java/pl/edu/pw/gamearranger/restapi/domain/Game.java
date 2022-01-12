@@ -1,5 +1,7 @@
 package pl.edu.pw.gamearranger.restapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
@@ -17,17 +19,15 @@ public class Game {
     private List<Team> teams;
     private String location;
     private Date date;
-    private Time time;
 
     public Game() {
     }
 
-    public Game(Long id, List<Team> teams, String location, Date date, Time time) {
+    public Game(Long id, List<Team> teams, String location, Date date) {
         this.id = id;
         this.teams = teams;
         this.location = location;
         this.date = date;
-        this.time = time;
     }
 
     public Long getId() {
@@ -62,24 +62,16 @@ public class Game {
         this.date = date;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return Objects.equals(id, game.id) && Objects.equals(teams, game.teams) && Objects.equals(location, game.location) && Objects.equals(date, game.date) && Objects.equals(time, game.time);
+        return Objects.equals(id, game.id) && Objects.equals(teams, game.teams) && Objects.equals(location, game.location) && Objects.equals(date, game.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, teams, location, date, time);
+        return Objects.hash(id, teams, location, date);
     }
 }
