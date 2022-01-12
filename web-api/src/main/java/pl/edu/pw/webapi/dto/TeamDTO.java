@@ -1,5 +1,7 @@
 package pl.edu.pw.webapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import pl.edu.pw.webapi.domain.Game;
 import pl.edu.pw.webapi.domain.Player;
 import pl.edu.pw.webapi.domain.TeamCaptain;
@@ -10,14 +12,15 @@ public class TeamDTO {
 
     private Long id;
     private String name;
-    private TeamCaptain captain;
-    private List<Player> players;
-    private List<Game> games;
+    private TeamCaptainDTO captain;
+    private List<PlayerDTO> players;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<GameDTO> games;
 
     public TeamDTO() {
     }
 
-    public TeamDTO(Long id, String name, TeamCaptain captain, List<Player> players, List<Game> games) {
+    public TeamDTO(Long id, String name, TeamCaptainDTO captain, List<PlayerDTO> players, List<GameDTO> games) {
         this.id = id;
         this.name = name;
         this.captain = captain;
@@ -41,27 +44,27 @@ public class TeamDTO {
         this.name = name;
     }
 
-    public TeamCaptain getCaptain() {
+    public TeamCaptainDTO getCaptain() {
         return captain;
     }
 
-    public void setCaptain(TeamCaptain captain) {
+    public void setCaptain(TeamCaptainDTO captain) {
         this.captain = captain;
     }
 
-    public List<Player> getPlayers() {
+    public List<PlayerDTO> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(List<PlayerDTO> players) {
         this.players = players;
     }
 
-    public List<Game> getGames() {
+    public List<GameDTO> getGames() {
         return games;
     }
 
-    public void setGames(List<Game> games) {
+    public void setGames(List<GameDTO> games) {
         this.games = games;
     }
 }

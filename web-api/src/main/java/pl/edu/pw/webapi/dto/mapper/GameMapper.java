@@ -14,14 +14,19 @@ public class GameMapper {
         List<GameDTO> mappedGames = new LinkedList<>();
 
         for (Game g: games) {
-            mappedGames.add(new GameDTO(g.getId(), g.getTeams(), g.getLocation(), g.getDate()));
+            mappedGames.add(map(g));
         }
 
         return mappedGames;
     }
 
     public GameDTO map(Game game) {
-        return new GameDTO(game.getId(), game.getTeams(), game.getLocation(), game.getDate());
+        return new GameDTO(
+                game.getId(),
+                new TeamMapper().map(game.getTeams()),
+                game.getLocation(),
+                game.getDate()
+        );
     }
 
     public Game map(CreateGameDTO game) {
@@ -30,5 +35,43 @@ public class GameMapper {
         g.setDate(game.getDate());
         g.setTeams(new ArrayList<>());
         return g;
+    }
+
+    public List<GameDTO> mapWithGamelessTeams(List<Game> games){
+        List<GameDTO> mappedGames = new LinkedList<>();
+
+        for (Game g: games) {
+            mappedGames.add(mapWithGamelessTeams(g));
+        }
+
+        return mappedGames;
+    }
+
+    public GameDTO mapWithGamelessTeams(Game game) {
+        return new GameDTO(
+                game.getId(),
+                new TeamMapper().mapWithoutGames(game.getTeams()),
+                game.getLocation(),
+                game.getDate()
+        );
+    }
+
+    public List<GameDTO> mapWithoutTeams(List<Game> games){
+        List<GameDTO> mappedGames = new LinkedList<>();
+
+        for (Game g: games) {
+            mappedGames.add(mapWithoutTeams(g));
+        }
+
+        return mappedGames;
+    }
+
+    public GameDTO mapWithoutTeams(Game game) {
+        return new GameDTO(
+                game.getId(),
+                null,
+                game.getLocation(),
+                game.getDate()
+        );
     }
 }

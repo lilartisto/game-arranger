@@ -17,8 +17,8 @@ import java.util.Optional;
 @Service
 public class GameServiceImpl implements GameService {
 
-    private GameRepository gameRepository;
-    private TeamRepository teamRepository;
+    private final GameRepository gameRepository;
+    private final TeamRepository teamRepository;
 
     public GameServiceImpl(GameRepository gameRepository, TeamRepository teamRepository) {
         this.gameRepository = gameRepository;
@@ -27,14 +27,14 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameDTO> getGames() {
-        return new GameMapper().map(gameRepository.findAll());
+        return new GameMapper().mapWithGamelessTeams(gameRepository.findAll());
     }
 
     @Override
     public GameDTO getGame(Long id) {
         Optional<Game> game = gameRepository.findById(id);
         if(game.isPresent()) {
-            return new GameMapper().map(game.get());
+            return new GameMapper().mapWithGamelessTeams(game.get());
         } else {
             return null;
         }

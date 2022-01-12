@@ -40,14 +40,14 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<TeamDTO> getTeams() {
-        return new TeamMapper().map(teamRepository.findAll());
+        return new TeamMapper().mapWithTeamlessGameAndCaptain(teamRepository.findAll());
     }
 
     @Override
     public TeamDTO getTeam(Long id) {
         Optional<Team> teamOptional = teamRepository.findById(id);
         if(teamOptional.isPresent()) {
-            return new TeamMapper().map(teamOptional.get());
+            return new TeamMapper().mapWithTeamlessGameAndCaptain(teamOptional.get());
         } else {
             return null;
         }

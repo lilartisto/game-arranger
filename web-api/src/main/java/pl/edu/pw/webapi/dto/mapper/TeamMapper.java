@@ -23,13 +23,56 @@ public class TeamMapper {
     public List<TeamDTO> map(List<Team> teams) {
         List<TeamDTO> mappedTeams = new LinkedList<>();
         for(Team t: teams) {
-            mappedTeams.add(new TeamDTO(t.getId(), t.getName(), t.getCaptain(), t.getPlayers(), t.getGames()));
+            mappedTeams.add(map(t));
         }
         return mappedTeams;
     }
 
     public TeamDTO map(Team team) {
-        return new TeamDTO(team.getId(), team.getName(), team.getCaptain(), team.getPlayers(), team.getGames());
+        return new TeamDTO(
+                team.getId(),
+                team.getName(),
+                new TeamCaptainMapper().map(team.getCaptain()),
+                new PlayerMapper().map(team.getPlayers()),
+                new GameMapper().map(team.getGames())
+        );
     }
+
+    public List<TeamDTO> mapWithoutGames(List<Team> teams) {
+        List<TeamDTO> mappedTeams = new LinkedList<>();
+        for(Team t: teams) {
+            mappedTeams.add(mapWithoutGames(t));
+        }
+        return mappedTeams;
+    }
+
+    public TeamDTO mapWithoutGames(Team team) {
+        return new TeamDTO(
+                team.getId(),
+                team.getName(),
+                new TeamCaptainMapper().mapWithoutTeam(team.getCaptain()),
+                new PlayerMapper().map(team.getPlayers()),
+                null
+        );
+    }
+
+    public List<TeamDTO> mapWithTeamlessGameAndCaptain(List<Team> teams) {
+        List<TeamDTO> mappedTeams = new LinkedList<>();
+        for(Team t: teams) {
+            mappedTeams.add(mapWithTeamlessGameAndCaptain(t));
+        }
+        return mappedTeams;
+    }
+
+    public TeamDTO mapWithTeamlessGameAndCaptain(Team team) {
+        return new TeamDTO(
+                team.getId(),
+                team.getName(),
+                new TeamCaptainMapper().mapWithoutTeam(team.getCaptain()),
+                new PlayerMapper().map(team.getPlayers()),
+                new GameMapper().mapWithoutTeams(team.getGames())
+        );
+    }
+
 
 }
