@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GameArrangerApplication {
+public class WebApiMain {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GameArrangerApplication.class, args);
+		SpringApplication.run(WebApiMain.class, args);
 	}
 
 }
