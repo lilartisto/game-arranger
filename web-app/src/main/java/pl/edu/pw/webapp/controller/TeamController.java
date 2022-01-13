@@ -13,8 +13,6 @@ import pl.edu.pw.webapp.dto.TeamDTO;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.List;
 
@@ -30,11 +28,6 @@ public class TeamController {
         connection.setRequestProperty("Content-Type",
                 "application/json");
         connection.setDoOutput(true);
-
-//        DataOutputStream wr = new DataOutputStream (
-//                connection.getOutputStream());
-//        wr.writeBytes("");
-//        wr.close();
 
         String response = readResponse(connection);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -79,8 +72,20 @@ public class TeamController {
         wr.writeBytes(new ObjectMapper().writeValueAsString(player));
         wr.close();
 
-        String response = readResponse(connection);
-        System.out.println(response);
+        readResponse(connection);
+
+        return "redirect:/team/" + teamId;
+    }
+
+    @GetMapping("/team/{teamId}/deleteplayer/{playerId}")
+    public String deletePlayer(@PathVariable("teamId") Long teamId, @PathVariable("playerId") Long playerId) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(url + "api/team/" + teamId + "/" + playerId).openConnection();
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Content-Type",
+                "application/json");
+        connection.setDoOutput(true);
+
+        readResponse(connection);
 
         return "redirect:/team/" + teamId;
     }

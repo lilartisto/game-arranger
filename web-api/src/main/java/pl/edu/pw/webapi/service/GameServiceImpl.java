@@ -72,5 +72,6 @@ public class GameServiceImpl implements GameService {
                 () -> new NoSuchElementException("Team with id = " + teamId));
 
         game.getTeams().remove(team);
+        team.getGames().remove(game);
     }
 }
