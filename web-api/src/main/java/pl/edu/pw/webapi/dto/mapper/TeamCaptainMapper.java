@@ -18,7 +18,7 @@ public class TeamCaptainMapper {
                 captain.getId(),
                 captain.getFirstName(),
                 captain.getLastName(),
-                new TeamMapper().map(captain.getTeam())
+                captain.getTeam() == null ? null : new TeamMapper().map(captain.getTeam())
         );
     }
 

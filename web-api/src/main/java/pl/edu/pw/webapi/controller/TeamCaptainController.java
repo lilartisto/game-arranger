@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pw.webapi.dto.CreateTeamCaptainDTO;
+import pl.edu.pw.webapi.dto.TeamCaptainDTO;
+import pl.edu.pw.webapi.dto.mapper.TeamCaptainMapper;
 import pl.edu.pw.webapi.service.TeamCaptainService;
 
 @RestController
@@ -18,7 +20,7 @@ public class TeamCaptainController {
     }
 
     @PostMapping
-    public void createTeamCaptain(@RequestBody CreateTeamCaptainDTO teamCaptain) {
-        teamCaptainService.createTeamCaptain(teamCaptain);
+    public TeamCaptainDTO createTeamCaptain(@RequestBody CreateTeamCaptainDTO teamCaptain) {
+        return new TeamCaptainMapper().map(teamCaptainService.createTeamCaptain(teamCaptain));
     }
 }

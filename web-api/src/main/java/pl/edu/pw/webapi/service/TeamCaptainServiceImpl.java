@@ -24,8 +24,8 @@ public class TeamCaptainServiceImpl implements TeamCaptainService {
     }
 
     @Override
-    public void createTeamCaptain(CreateTeamCaptainDTO teamCaptain) {
-        teamCaptainRepository.save(new TeamCaptainMapper().map(teamCaptain));
+    public TeamCaptain createTeamCaptain(CreateTeamCaptainDTO teamCaptain) {
+        return teamCaptainRepository.save(new TeamCaptainMapper().map(teamCaptain));
     }
 
 }

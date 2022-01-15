@@ -6,6 +6,6 @@ import pl.edu.pw.webapi.dto.CreateTeamCaptainDTO;
 public interface TeamCaptainService {
 
     TeamCaptain getTeamCaptain(Long id);
-    void createTeamCaptain(CreateTeamCaptainDTO teamCaptain);
+    TeamCaptain createTeamCaptain(CreateTeamCaptainDTO teamCaptain);
 
 }

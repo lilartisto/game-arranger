@@ -54,19 +54,6 @@ public class GameController {
         return "game_detail";
     }
 
-    @GetMapping("/game/{gameId}/deleteteam/{teamId}")
-    public String deleteTeam(@PathVariable("gameId") Long gameId, @PathVariable("teamId") Long teamId, Model model) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(url + "api/game/" + gameId + "/" + teamId).openConnection();
-        connection.setRequestMethod("DELETE");
-        connection.setRequestProperty("Content-Type",
-                "application/json");
-        connection.setDoOutput(true);
-
-        readResponse(connection);
-
-        return "redirect:/game/" + gameId;
-    }
-
     @GetMapping("/game/newgame")
     public String newGameView(Model model) {
         CreateGameDTO game = new CreateGameDTO();

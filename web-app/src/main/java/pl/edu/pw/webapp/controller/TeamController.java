@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.edu.pw.webapp.dto.CreatePlayerDTO;
-import pl.edu.pw.webapp.dto.TeamDTO;
+import pl.edu.pw.webapp.dto.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -48,6 +47,7 @@ public class TeamController {
 
         String response = readResponse(connection);
         model.addAttribute("team", new ObjectMapper().readValue(response, TeamDTO.class));
+        model.addAttribute("joinGame", new JoinGameDTO());
 
         return "team_detail";
     }
@@ -90,10 +90,85 @@ public class TeamController {
         return "redirect:/team/" + teamId;
     }
 
+    @PostMapping("/team/{teamId}/joingame")
+    public String joinGame(@PathVariable("teamId") Long teamId, @ModelAttribute("gameId") JoinGameDTO joinGame, Model model) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(url + "api/game/" + joinGame.getGameId() + "/" + teamId).openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Content-Type",
+                "application/json");
+        connection.setDoOutput(true);
+
+        readResponse(connection);
+
+        return "redirect:/team/" + teamId;
+    }
+
+    @GetMapping("/team/{teamId}/deletegame/{gameId}")
+    public String deleteTeam(@PathVariable("gameId") Long gameId, @PathVariable("teamId") Long teamId, Model model) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(url + "api/game/" + gameId + "/" + teamId).openConnection();
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Content-Type",
+                "application/json");
+        connection.setDoOutput(true);
+
+        readResponse(connection);
+
+        return "redirect:/team/" + teamId;
+    }
+
+    @GetMapping("/team/newteam")
+    public String createTeamView(Model model) {
+        CreateTeamCaptainDTO captain = new CreateTeamCaptainDTO();
+        CreateTeamDTO team = new CreateTeamDTO();
+
+        model.addAttribute("captain", captain);
+        model.addAttribute("team", team);
+
+        return "add_team";
+    }
+
+    @PostMapping("team/newteam")
+    public String createTeam(@ModelAttribute("team") CreateTeamDTO team, @ModelAttribute("captain") CreateTeamCaptainDTO captain) throws IOException {
+        TeamCaptainDTO teamCaptain = createTeamCaptain(captain);
+        team.setCaptainId(teamCaptain.getId());
+        createTeam(team);
+
+        return "redirect:/team";
+    }
+
+    private void createTeam(CreateTeamDTO team) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(url + "api/team").openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type",
+                "application/json");
+        connection.setDoOutput(true);
+
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        wr.writeBytes(new ObjectMapper().writeValueAsString(team));
+        wr.close();
+
+        readResponse(connection);
+    }
+
+    private TeamCaptainDTO createTeamCaptain(CreateTeamCaptainDTO captain) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        HttpURLConnection connection = (HttpURLConnection) new URL(url + "api/teamcaptain").openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type",
+                "application/json");
+        connection.setDoOutput(true);
+
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        wr.writeBytes(mapper.writeValueAsString(captain));
+        wr.close();
+
+        return mapper.readValue(readResponse(connection), TeamCaptainDTO.class);
+    }
+
     private String readResponse(HttpURLConnection connection) throws IOException {
         InputStream is = connection.getInputStream();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+        StringBuilder response = new StringBuilder();
         String line;
         while ((line = rd.readLine()) != null) {
             response.append(line);
